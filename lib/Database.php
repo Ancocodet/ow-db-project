@@ -1,15 +1,16 @@
 <?php
 
+namespace Library;
+
 class Database
 {
 
     private $config;
     private $connection;
 
-    public function __construct()
+    public function __construct($json)
     {
-        $json = file_get_contents('../configs/mysql.json');
-        $this->config = json_decode($json, true);
+        $this->config = json_decode($json, true);;
     }
 
     /**
@@ -51,7 +52,7 @@ class Database
     }
 
     /**
-     * @return bool
+     * @return array | null
      */
     public function query($statement)
     {
@@ -59,7 +60,7 @@ class Database
             $this->connect();
         }
 
-        return mysqli_query($this->connection, $statement);
+        return mysqli_query($this->connection, $statement)->fetch_all();
     }
 
 }
