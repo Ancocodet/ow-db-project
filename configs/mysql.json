@@ -1,7 +1,7 @@
 {
-  "hostname": "",
+  "hostname": "localhost",
   "port": 3306,
-  "username": "",
-  "password": "",
-  "database": ""
+  "username": "hhstest",
+  "password": "hhstest",
+  "database": "hhstest"
 }

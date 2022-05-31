@@ -8,6 +8,7 @@ include_once 'lib/entities/MapEntity.php';
 
 use Library\Database;
 use Library\Enums\EGame;
+use Library\Enums\EGamePlayer;
 
 class GameEntity
 {
@@ -20,6 +21,7 @@ class GameEntity
 
     private GameModeEntity $gameMode;
     private MapEntity $map;
+    private array $players;
 
     public function __construct(Database $database, int $id)
     {
@@ -42,6 +44,25 @@ class GameEntity
 
         $this->gameMode = new GameModeEntity($this->database, $this->data[EGame::$GAMEMODE_ID]);
         $this->map = new MapEntity($this->database, $this->data[EGame::$MAP_ID]);
+
+        $this->searchPlayers();
+    }
+
+    public function searchPlayers()
+    {
+        $result = $this->database->query("SELECT * FROM game_player WHERE game_id = $this->id");
+
+        if(count($result) <= 0){
+            return;
+        }
+
+        $this->players = array();
+
+        foreach ($result as $player)
+        {
+            $this->players[] = new PlayerEntity($this->database, $player[EGamePlayer::$ID]);
+        }
+
     }
 
     public function exists() : bool
@@ -59,8 +80,14 @@ class GameEntity
         return $this->map;
     }
 
+    public function getPlayers() : array
+    {
+        return $this->players;
+    }
+
     public function getAttribute($name)
     {
         return $this->data[$name];
     }
+
 }

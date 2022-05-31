@@ -63,4 +63,14 @@ class Database
         return mysqli_query($this->connection, $statement)->fetch_all();
     }
 
+    public function multi_query($filename)
+    {
+        $commands = file_get_contents($filename);
+
+        $lines = explode(";",$commands);
+        foreach ($lines as $line)
+        {
+            $this->update($line);
+        }
+    }
 }
