@@ -1,5 +1,7 @@
 <?php
 
+include_once '../autoload.php';
+
 if( ! file_exists("../.SETUP") )
 {
     header("HTTP/1.1 307 Temporary Redirect");
