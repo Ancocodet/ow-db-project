@@ -12,4 +12,6 @@ if( file_exists(".SETUP") )
 use Library\Database;
 
 $database = new Database(file_get_contents('configs/mysql.json'));
+if(isset($_GET['path']))
+echo $_GET['path'];
 
