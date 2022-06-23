@@ -21,15 +21,3 @@ include_once 'lib/enums/ESkin.php';
 include_once 'lib/managers/GameManager.php';
 include_once 'lib/managers/HeroManager.php';
 include_once 'lib/managers/PlayerManager.php';
-
-if( file_exists(".SETUP") )
-{
-    include_once 'setup/FileReader.php';
-
-    include_once 'setup/converter/GameConverter.php';
-    include_once 'setup/converter/GameModeConverter.php';
-    include_once 'setup/converter/HeroConverter.php';
-    include_once 'setup/converter/MapConverter.php';
-    include_once 'setup/converter/PlayerConverter.php';
-    include_once 'setup/converter/SkinConverter.php';
-}
