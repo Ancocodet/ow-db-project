@@ -1,6 +1,11 @@
 <?php
 
-include_once '../autoload.php';
+include_once('autoload.php');
+
+use Setup\Steps\ConfigFillStep;
+use Setup\Steps\CreateTablesStep;
+use Setup\Steps\EntryCreationStep;
+use Setup\Steps\FinishedStep;
 
 if( ! file_exists("../.SETUP") )
 {
@@ -10,14 +15,49 @@ if( ! file_exists("../.SETUP") )
 }
 
 session_start();
-if(!isset($_SESSION['step'])) $_SESSION['step'] = 1;
+if(!isset($_SESSION['step']))
+{
+    $_SESSION['step'] = 0;
+    $_SESSION['progress'] = 0;
+}
+
+$steps = array(new ConfigFillStep(), new CreateTablesStep(),
+    new EntryCreationStep(), new FinishedStep());
+
+if(isset($_GET['reset'])){
+    $_SESSION['step'] = 0;
+    $_SESSION['creation'] = 0;
+    $_SESSION['progress'] = 0;
+}
+
+if(array_key_exists($_SESSION ['step'] ?? 0, $steps)){
+    $step = $steps[$_SESSION ['step'] ?? 0];
+    if($_SERVER['REQUEST_METHOD'] == 'POST'){
+        $step->handleRequest($_POST);
+    }
+}
+
+function getRunAmount($steps){
+    $amount = 0;
+    foreach ($steps as $step){
+        $amount += $step->runs();
+    }
+    return $amount;
+}
 
 ?>
 
 <html lang="en">
     <head>
         <title>Setup</title>
-        <meta http-equiv="refresh" content="5;URL='<?php echo $_SERVER['PHP_SELF']; ?>'">
+        <?php
+        if(array_key_exists($_SESSION ['step'] ?? 0, $steps)){
+            if($steps[$_SESSION ['step'] ?? 0]->showProgress())
+            {
+                echo '<meta http-equiv="refresh" content="5; URL='.$_SERVER['PHP_SELF'].'">';
+            }
+        }
+        ?>
         <link type="text/css" rel="stylesheet" href="../dist/css/bootstrap.min.css">
         <script src="../dist/js/bootstrap.bundle.min.js"></script>
     </head>
@@ -27,13 +67,21 @@ if(!isset($_SESSION['step'])) $_SESSION['step'] = 1;
                 <div class="col col-lg-8">
                     <div class="card my-5">
                         <div class="card-header">
-                            Setup <?php echo $_SESSION['step'] ?? 1; ?>/X
+                            Setup <?php echo ($_SESSION['step'] ?? 0) + 1; ?>/<?php echo count($steps); ?>
                         </div>
                         <div class="card-body">
-                            <span class="pb-3">Creating SQL-Databases</span>
-                            <div class="progress">
-                                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: <?php echo ($_SESSION['progress'] ?? 0); ?>%" aria-valuenow="<?php echo ($_SESSION['progress'] ?? 0); ?>" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
+                            <?php
+                            if(array_key_exists($_SESSION ['step'] ?? 0, $steps)){
+                                echo $steps[$_SESSION ['step'] ?? 0]->getTemplate($_GET);
+                                if($steps[$_SESSION ['step'] ?? 0]->showProgress())
+                                {
+                                    echo '<div class="progress">';
+                                    echo '<div class="progress-bar" role="progressbar" style="width:'.(($_SESSION['progress'] / getRunAmount($steps)) * 100). '%" aria-valuenow="'.(($_SESSION['progress'] / getRunAmount($steps)) * 100).'" aria-valuemin="0" aria-valuemax="100"></div>';
+                                    echo '</div>';
+                                }
+                                $steps[$_SESSION ['step'] ?? 0]->run();
+                            }
+                            ?>
                         </div>
                     </div>
                 </div>

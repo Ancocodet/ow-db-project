@@ -16,10 +16,11 @@ class Database
     /**
      * @return bool
      */
-    public function connect()
+    public function connect(): bool
     {
         $this->connection = mysqli_connect($this->config['hostname'], $this->config['username'],
             $this->config['password'], $this->config['database'], $this->config['port']);
+
         if(!$this->connection){
             return false;
         }
@@ -39,10 +40,7 @@ class Database
         return $this->connection != null;
     }
 
-    /**
-     * @return bool
-     */
-    public function update($statement)
+    public function update($statement) : bool
     {
         if(!$this->is_connected()){
             $this->connect();
@@ -51,10 +49,7 @@ class Database
         return mysqli_query($this->connection, $statement);
     }
 
-    /**
-     * @return array | null
-     */
-    public function query($statement)
+    public function query($statement) : array
     {
         if(!$this->is_connected()){
             $this->connect();
