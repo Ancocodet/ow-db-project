@@ -12,6 +12,17 @@ if( file_exists(".SETUP") )
 use Library\Database;
 
 $database = new Database(file_get_contents('configs/mysql.json'));
-if(isset($_GET['path']))
-echo $_GET['path'];
+if(isset($_GET['path'])){
+    $params = explode('/', $_GET['path']);
+    $page = array_shift($params);
+
+    if(count($params) > 0){
+        $_GET['params'] = $params;
+    }
+
+    $_GET['path'] = $page;
+    include_once 'pages/'.$page.'.php';
+} else {
+    include_once 'pages/welcome.php';
+}
 
