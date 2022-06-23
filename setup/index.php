@@ -49,7 +49,7 @@ function getRunAmount($steps){
 
 <html lang="en">
     <head>
-        <title>Einrichtung <?php echo ($_SESSION['step'] ?? 0) + 1; ?>/<?php echo count($steps); ?></title>
+        <title>Setup <?php echo ($_SESSION['step'] ?? 0) + 1; ?>/<?php echo count($steps); ?></title>
         <?php
         if(array_key_exists($_SESSION ['step'] ?? 0, $steps)){
             if($steps[$_SESSION ['step'] ?? 0]->showProgress())
@@ -67,7 +67,7 @@ function getRunAmount($steps){
                 <div class="col col-lg-8">
                     <div class="card my-5">
                         <div class="card-header">
-                            Einrichtung <?php echo ($_SESSION['step'] ?? 0) + 1; ?> von <?php echo count($steps); ?>
+                            Setup <?php echo ($_SESSION['step'] ?? 0) + 1; ?> of <?php echo count($steps); ?>
                         </div>
                         <div class="card-body">
                             <?php

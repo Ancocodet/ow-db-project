@@ -34,7 +34,7 @@ class CreateTablesStep implements IStep
 
     function getTemplate(?array $values): string
     {
-        return '<span>Tabellen werden erstellt</span>';
+        return '<span>Tables are created</span>';
     }
 
     function handleRequest(?array $values): void

@@ -78,21 +78,21 @@ class EntryCreationStep implements IStep
         $currentCreation = $_SESSION['creation'] ?? 0;
         switch ($currentCreation){
             case 0:
-                return '<span>Spielereinträge werden erstellt</span>';
+                return '<span>Player-entities are created</span>';
             case 1:
-                return '<span>Heldeneinträge werden erstellt</span>';
+                return '<span>Hero-entities are created</span>';
             case 2:
-                return '<span>Skineinträge werden erstellt</span>';
+                return '<span>Skin-entities are created</span>';
             case 3:
-                return '<span>Mapeinträge werden erstellt</span>';
+                return '<span>Map-entities are created</span>';
             case 4:
-                return '<span>Spiemodieinträge werden erstellt</span>';
+                return '<span>GameMode-entities are created</span>';
             case 5:
-                return '<span>Gameeinträge werden erstellt</span>';
+                return '<span>Game-entities are created</span>';
             case 6:
-                return '<span>Relationen werden erstellt</span>';
+                return '<span>Relations are created</span>';
             default:
-                return '<span>Entitäten werden erstellt</span>';
+                return '<span>Entities are created</span>';
         }
     }
 

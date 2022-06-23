@@ -25,8 +25,8 @@ class FinishedStep implements IStep
 
     function getTemplate(?array $values): string
     {
-        return '<h3>Die Einrichtung war erfolgreich</h3>'.
-            '<span>Du wirst in Kürze wieder auf die Haupseite geleitet</span>';
+        return '<h3>Setup completed</h3>'.
+            '<span>You will be redirected back to the main page shortly</span>';
     }
 
     function handleRequest(?array $values): void

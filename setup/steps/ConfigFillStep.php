@@ -40,7 +40,7 @@ class ConfigFillStep implements IStep
                             '<input type="password" class="form-control" id="password" name="password" placeholder="password">'.
                         '</div>'.
                     '</div>'.
-                    '<button type="submit" class="btn btn-primary">Save</button>'.
+                    '<button type="submit" class="btn btn-primary">Save and connect</button>'.
                 '</form>';
     }
 
