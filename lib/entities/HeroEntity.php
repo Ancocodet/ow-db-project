@@ -3,6 +3,7 @@
 namespace Library\Entities;
 
 use Library\Database;
+use Library\Enums\ESkin;
 
 class HeroEntity
 {
@@ -12,6 +13,7 @@ class HeroEntity
     private bool $exists = false;
 
     private array $data;
+    private array $skins;
 
     public function __construct(Database $database, int $id)
     {
@@ -31,6 +33,25 @@ class HeroEntity
 
         $this->exists = true;
         $this->data = $result[0];
+
+        $this->searchSkins();
+    }
+
+    public function searchSkins()
+    {
+        $result = $this->database->query("SELECT id FROM skins WHERE hero_id = $this->id");
+
+        if(count($result) <= 0){
+            return;
+        }
+
+        $this->skins = array();
+
+        foreach ($result as $skin)
+        {
+            $this->skins[] = new SkinEntity($this->database, $skin[ESkin::$ID], false);
+        }
+
     }
 
     public function exists() : bool
@@ -38,4 +59,13 @@ class HeroEntity
         return $this->exists;
     }
 
+    public function getSkins(): array
+    {
+        return $this->skins;
+    }
+
+    public function getAttribute($name)
+    {
+        return $this->data[$name];
+    }
 }

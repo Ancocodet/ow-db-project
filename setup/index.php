@@ -60,6 +60,8 @@ function getRunAmount($steps){
         ?>
         <link type="text/css" rel="stylesheet" href="../dist/css/bootstrap.min.css">
         <script src="../dist/js/bootstrap.bundle.min.js"></script>
+
+        <link rel="icon" href="../dist/images/favicon.ico">
     </head>
     <body class="bg-light w-100 h-100">
         <div class="container">

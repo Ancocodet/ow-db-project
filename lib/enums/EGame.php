@@ -9,6 +9,8 @@ class EGame
     public static $FINISHED = 2;
     public static $WINNER = 3;
 
-    public static $GAMEMODE_ID = 4;
-    public static $MAP_ID = 5;
+    public static $MAP = 4;
+    public static $GAMEMODE = 5;
+
+
 }

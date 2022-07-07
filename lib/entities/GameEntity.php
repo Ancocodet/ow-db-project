@@ -33,7 +33,7 @@ class GameEntity
 
     private function initializeEntity()
     {
-        $result = $this->database->query("SELECT * FROM games WHERE id = $this->id LIMIT 1");
+        $result = $this->database->query("SELECT games.id, games.started, games.finished, games.winner, maps.name, gamemodes.name FROM games,maps,gamemodes WHERE games.id = $this->id AND maps.id = games.id AND games.gamemode_id = gamemodes.id LIMIT 1");
 
         if(count($result) <= 0){
             return;
@@ -41,9 +41,6 @@ class GameEntity
 
         $this->exists = true;
         $this->data = $result[0];
-
-        $this->gameMode = new GameModeEntity($this->database, $this->data[EGame::$GAMEMODE_ID]);
-        $this->map = new MapEntity($this->database, $this->data[EGame::$MAP_ID]);
 
         $this->searchPlayers();
     }
@@ -70,19 +67,14 @@ class GameEntity
         return $this->exists;
     }
 
-    public function getGameMode() : GameModeEntity
-    {
-        return $this->gameMode;
-    }
-
-    public function getMap() : MapEntity
-    {
-        return $this->map;
-    }
-
     public function getPlayers() : array
     {
         return $this->players;
+    }
+
+    public function getData(): array
+    {
+        return $this->data;
     }
 
     public function getAttribute($name)

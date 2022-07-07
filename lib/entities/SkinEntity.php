@@ -16,15 +16,15 @@ class SkinEntity
     private array $data;
     private HeroEntity $heroEntity;
 
-    public function __construct(Database $database, int $id)
+    public function __construct(Database $database, int $id, bool $recursive = true)
     {
         $this->database = $database;
         $this->id = $id;
 
-        $this->initializeEntity();
+        $this->initializeEntity($recursive);
     }
 
-    private function initializeEntity()
+    private function initializeEntity(bool $recursive = true)
     {
         $result = $this->database->query("SELECT * FROM skins WHERE id = $this->id LIMIT 1");
 
@@ -35,7 +35,8 @@ class SkinEntity
         $this->exists = true;
         $this->data = $result[0];
 
-        $this->heroEntity = new HeroEntity($this->database, ESkin::$HERO_ID);
+        if($recursive)
+            $this->heroEntity = new HeroEntity($this->database, ESkin::$HERO_ID);
     }
 
     public function exists() : bool
@@ -43,9 +44,19 @@ class SkinEntity
         return $this->exists;
     }
 
-    public function getHero() : HeroEntity
+    public function getHero() : ?HeroEntity
     {
         return $this->heroEntity;
+    }
+
+    public function getData() : array
+    {
+        return $this->data;
+    }
+
+    public function getAttribute($name)
+    {
+        return $this->data[$name];
     }
 
 }
