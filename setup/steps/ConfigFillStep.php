@@ -54,7 +54,7 @@ class ConfigFillStep implements IStep
                 'username' => $values['username'],
                 'password' => $values['password']
             ];
-            file_put_contents('../configs/mysql.json', json_encode($json_array, JSON_PRETTY_PRINT));
+            file_put_contents($_SERVER['DOCUMENT_ROOT'].'/configs/mysql.json', json_encode($json_array, JSON_PRETTY_PRINT));
 
             $_SESSION['step'] += 1;
             $_SESSION['progress'] += 1;

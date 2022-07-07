@@ -18,7 +18,7 @@ $pageName = 'Welcome';
                     <li><a href="/welcome" class="nav-link px-2 text-secondary">Home</a></li>
                     <li><a href="/heroes" class="nav-link px-2 text-white">Heroes</a></li>
                     <li><a href="/games" class="nav-link px-2 text-white">Games</a></li>
-                    <li><a href="/maps" class="nav-link px-2 text-white">Maps</a></li>
+                    <li><a href="/players" class="nav-link px-2 text-white">Players</a></li>
                     <li class="nav-item dropdown">
                         <a class="nav-link px-2 text-white" href="#" id="others_dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Others

@@ -9,24 +9,24 @@ class PlayerEntity
 {
 
     private Database $database;
-    private int $id;
+    private string $name;
     private bool $exists = false;
 
     private array $data;
 
-    public function __construct(Database $database, int $id)
+    public function __construct(Database $database, string $name)
     {
         $this->database = $database;
-        $this->id = $id;
+        $this->name = $name;
 
         $this->initializeEntity();
     }
 
     private function initializeEntity()
     {
-        $result = $this->database->query("SELECT * FROM players WHERE id = $this->id LIMIT 1");
+        $result = $this->database->query("SELECT * FROM players WHERE nickname LIKE '$this->name' LIMIT 1");
 
-        if(count($result) <= 0){
+        if(!$result || count($result) <= 0){
             return;
         }
 
@@ -37,6 +37,11 @@ class PlayerEntity
     public function exists() : bool
     {
         return $this->exists;
+    }
+
+    public function getAttribute($name)
+    {
+        return $this->data[$name];
     }
 
 }

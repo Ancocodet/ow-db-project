@@ -11,6 +11,7 @@ class EGame
 
     public static $MAP = 4;
     public static $GAMEMODE = 5;
+    public static $TEAM_SIZE = 6;
 
 
 }

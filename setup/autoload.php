@@ -1,18 +1,18 @@
 <?php
 
-include_once '../lib/Database.php';
+include_once $_SERVER['DOCUMENT_ROOT'].'/lib/Database.php';
 
-include_once('steps/IStep.php');
-include_once('steps/ConfigFillStep.php');
-include_once('steps/CreateTablesStep.php');
-include_once('steps/EntryCreationStep.php');
-include_once('steps/FinishedStep.php');
+include_once(__DIR__ . '/steps/IStep.php');
+include_once(__DIR__ . '/steps/ConfigFillStep.php');
+include_once(__DIR__ . '/steps/CreateTablesStep.php');
+include_once(__DIR__ . '/steps/EntryCreationStep.php');
+include_once(__DIR__ . '/steps/FinishedStep.php');
 
-include_once('converter/FileReader.php');
-include_once 'converter/GameConverter.php';
-include_once 'converter/GameModeConverter.php';
-include_once 'converter/GamePlayerConverter.php';
-include_once 'converter/HeroConverter.php';
-include_once 'converter/MapConverter.php';
-include_once 'converter/PlayerConverter.php';
-include_once 'converter/SkinConverter.php';
+include_once __DIR__ . '/converter/FileReader.php';
+include_once __DIR__ . '/converter/GameConverter.php';
+include_once __DIR__ . '/converter/GameModeConverter.php';
+include_once __DIR__ . '/converter/GamePlayerConverter.php';
+include_once __DIR__ . '/converter/HeroConverter.php';
+include_once __DIR__ . '/converter/MapConverter.php';
+include_once __DIR__ . '/converter/PlayerConverter.php';
+include_once __DIR__ . '/converter/SkinConverter.php';

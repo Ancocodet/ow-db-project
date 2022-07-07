@@ -26,42 +26,42 @@ class EntryCreationStep implements IStep
             $_SESSION['creation'] = 0;
         }
 
-        $database = new Database(file_get_contents('../configs/mysql.json'));
+        $database = new Database(file_get_contents($_SERVER['DOCUMENT_ROOT'].'/configs/mysql.json'));
         $currentCreation = $_SESSION['creation'] ?? 0;
 
         switch ($currentCreation){
             case 0:
-                new PlayerConverter($database, new FileReader('data/players.csv'));
+                new PlayerConverter($database, new FileReader($_SERVER['DOCUMENT_ROOT'].'/setup/data/players.csv'));
                 $_SESSION['creation'] += 1;
                 $_SESSION['progress'] += 1;
                 break;
             case 1:
-                new HeroConverter($database, new FileReader('data/heroes.csv'));
+                new HeroConverter($database, new FileReader($_SERVER['DOCUMENT_ROOT'].'/setup/data/heroes.csv'));
                 $_SESSION['creation'] += 1;
                 $_SESSION['progress'] += 1;
                 break;
             case 2:
-                new SkinConverter($database, new FileReader('data/skins.csv'));
+                new SkinConverter($database, new FileReader($_SERVER['DOCUMENT_ROOT'].'/setup/data/skins.csv'));
                 $_SESSION['creation'] += 1;
                 $_SESSION['progress'] += 1;
                 break;
             case 3:
-                new MapConverter($database, new FileReader('data/maps.csv'));
+                new MapConverter($database, new FileReader($_SERVER['DOCUMENT_ROOT'].'/setup/data/maps.csv'));
                 $_SESSION['creation'] += 1;
                 $_SESSION['progress'] += 1;
                 break;
             case 4:
-                new GameModeConverter($database, new FileReader('data/gamemodes.csv'));
+                new GameModeConverter($database, new FileReader($_SERVER['DOCUMENT_ROOT'].'/setup/data/gamemodes.csv'));
                 $_SESSION['creation'] += 1;
                 $_SESSION['progress'] += 1;
                 break;
             case 5:
-                new GameConverter($database, new FileReader('data/games.csv'));
+                new GameConverter($database, new FileReader($_SERVER['DOCUMENT_ROOT'].'/setup/data/games.csv'));
                 $_SESSION['creation'] += 1;
                 $_SESSION['progress'] += 1;
                 break;
             case 6:
-                new GamePlayerConverter($database, new FileReader('data/game_players.csv'));
+                new GamePlayerConverter($database, new FileReader($_SERVER['DOCUMENT_ROOT'].'/setup/data/game_players.csv'));
                 $_SESSION['step'] += 1;
                 $_SESSION['progress'] += 1;
                 break;

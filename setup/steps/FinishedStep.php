@@ -14,7 +14,7 @@ class FinishedStep implements IStep
 
     function run(): void
     {
-        unlink('../.SETUP');
+        unlink($_SERVER['DOCUMENT_ROOT'].'/.SETUP');
         session_destroy();
     }
 

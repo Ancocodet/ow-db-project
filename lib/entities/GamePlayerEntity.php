@@ -13,8 +13,6 @@ class GamePlayerEntity
     private bool $exists = false;
 
     private array $data;
-    private SkinEntity $skinEntity;
-    private PlayerEntity $playerEntity;
 
     public function __construct(Database $database, int $id)
     {
@@ -26,7 +24,9 @@ class GamePlayerEntity
 
     private function initializeEntity()
     {
-        $result = $this->database->query("SELECT * FROM game_player WHERE id = $this->id LIMIT 1");
+        $result = $this->database->query("SELECT game_player.team, players.nickname, skins.name, heroes.name  FROM game_player, players, skins, heroes WHERE game_player.id = $this->id 
+                                                    AND game_player.player_id = players.id AND game_player.skin_id = skins.id AND skins.hero_id = heroes.id 
+                                                    LIMIT 1");
 
         if(count($result) <= 0){
             return;
@@ -34,9 +34,6 @@ class GamePlayerEntity
 
         $this->exists = true;
         $this->data = $result[0];
-
-        $this->skinEntity = new SkinEntity($this->database, $this->data[EGamePlayer::$SKIN_ID]);
-        $this->playerEntity = new PlayerEntity($this->database, $this->data[EGamePlayer::$PLAYER_ID]);
     }
 
     public function exists() : bool
@@ -44,14 +41,9 @@ class GamePlayerEntity
         return $this->exists;
     }
 
-    public function getSkin() : SkinEntity
+    public function getAttribute($name)
     {
-        return $this->skinEntity;
-    }
-
-    public function getPlayer() : PlayerEntity
-    {
-        return $this->playerEntity;
+        return $this->data[$name];
     }
 
 }

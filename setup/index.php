@@ -1,13 +1,13 @@
 <?php
 
-include_once('autoload.php');
+include_once(__DIR__ . '/autoload.php');
 
 use Setup\Steps\ConfigFillStep;
 use Setup\Steps\CreateTablesStep;
 use Setup\Steps\EntryCreationStep;
 use Setup\Steps\FinishedStep;
 
-if( ! file_exists("../.SETUP") )
+if( ! file_exists(".SETUP") )
 {
     header("HTTP/1.1 307 Temporary Redirect");
     header("Location: /");

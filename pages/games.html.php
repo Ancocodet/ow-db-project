@@ -1,14 +1,11 @@
 <?php
 
 use Library\Entities\GameEntity;
-use Library\Entities\GameModeEntity;
-use Library\Entities\MapEntity;
 use Library\Enums\EGame;
-use Library\Enums\EGameMode;
-use Library\Enums\EMap;
+use Library\Enums\EGamePlayer;
 
 $params = $_GET['params'] ?? [];
-$pageName = 'Welcome';
+$pageName = 'Games';
 
 $manager = new GameManager($database);
 ?>
@@ -28,6 +25,7 @@ $manager = new GameManager($database);
                     <li><a href="/welcome" class="nav-link px-2 text-white">Home</a></li>
                     <li><a href="/heroes" class="nav-link px-2 text-white">Heroes</a></li>
                     <li><a href="/games" class="nav-link px-2 text-secondary">Games</a></li>
+                    <li><a href="/players" class="nav-link px-2 text-white">Players</a></li>
                     <li class="nav-item dropdown">
                         <a class="nav-link px-2 text-white" href="#" id="others_dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Others
@@ -53,7 +51,46 @@ $manager = new GameManager($database);
                     echo "<h2>Game not found</h2>";
                     echo "<p>The Game <b>#$gameId</b> does not exists in our database</p>";
                 }else{
-                    echo join(',', $game->getData());
+                    echo "<h2>Game #$gameId (".$game->getAttribute(EGame::$GAMEMODE).")</h2>";
+                    echo "<div class='row'>";
+
+                    $table = include_once 'pages/elements/table_builder.php';
+
+                    $players = $game->getPlayers();
+                    for($i = 0; $i < count($game->getPlayers()) / $game->getAttribute(EGame::$TEAM_SIZE); $i++){
+                        $team = $i+1;
+                        $winner = $game->getAttribute(EGame::$WINNER) == $team;
+                        echo '<div class="col">';
+                        echo '<div class="card">';
+                        if($winner) {
+                            echo "<div class='card-header'>Team $team</div>";
+                        }else{
+                            echo "<div class='card-header'>Team $team (Winner)</div>";
+                        }
+                        echo "<div class='card-body'>";
+
+                        $table_head = ['Name', 'Hero', 'Skin'];
+                        $table_elements = [];
+                        foreach ($players as $player)
+                        {
+                            if($player->getAttribute(EGamePlayer::$TEAM) != $team)
+                                continue;
+
+                            $playerData = [
+                                '<a href="/players/'.$player->getAttribute(EGamePlayer::$NICKNAME).'">'.$player->getAttribute(EGamePlayer::$NICKNAME).'</a>',
+                                $player->getAttribute(EGamePlayer::$HERO),
+                                $player->getAttribute(EGamePlayer::$SKIN),
+                            ];
+                            $table_elements[] = $playerData;
+                        }
+
+                        $builder = new TableBuilder($table_head, $table_elements);
+                        echo $builder->build();
+
+                        echo '</div></div>';
+                        echo '</div>';
+                    }
+                    echo "</div>";
                 }
             }
             else
@@ -61,6 +98,8 @@ $manager = new GameManager($database);
                 $table_head = ['#', 'Start', 'End', 'Winner', 'GameMode', 'Map'];
                 $result = $manager->getAll();
                 for ($i = 0; $i < count($result); $i++) {
+                    unset($result[$i][EGame::$TEAM_SIZE]);
+
                     $id = $result[$i][0];
                     $result[$i][0] = "<a href='/games/$id'>$id</a>";
                     $result[$i][EGame::$WINNER] = "Team " . $result[$i][EGame::$WINNER];
