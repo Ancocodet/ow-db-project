@@ -33,7 +33,7 @@ class GameEntity
 
     private function initializeEntity()
     {
-        $result = $this->database->query("SELECT games.id, games.started, games.finished, games.winner, maps.name, gamemodes.name, gamemodes.team_size FROM games,maps,gamemodes WHERE games.id = $this->id AND maps.id = games.id AND games.gamemode_id = gamemodes.id LIMIT 1");
+        $result = $this->database->query("SELECT games.id, games.started, games.finished, games.winner, maps.name, gamemodes.name, gamemodes.team_size FROM games,maps,gamemodes WHERE games.id = $this->id AND games.map_id = maps.id AND games.gamemode_id = gamemodes.id LIMIT 1");
 
         if(count($result) <= 0){
             return;
@@ -47,7 +47,7 @@ class GameEntity
 
     public function searchPlayers()
     {
-        $result = $this->database->query("SELECT id FROM game_player WHERE game_id = $this->id");
+        $result = $this->database->query("SELECT id FROM game_player WHERE game_player.game_id = $this->id");
 
         if(count($result) <= 0){
             return;

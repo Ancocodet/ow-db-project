@@ -56,12 +56,12 @@ class EntryCreationStep implements IStep
                 $_SESSION['progress'] += 1;
                 break;
             case 5:
-                new GameConverter($database, new FileReader($_SERVER['DOCUMENT_ROOT'].'/setup/data/games.csv'));
+                new GameConverter($database, 100);
                 $_SESSION['creation'] += 1;
                 $_SESSION['progress'] += 1;
                 break;
             case 6:
-                new GamePlayerConverter($database, new FileReader($_SERVER['DOCUMENT_ROOT'].'/setup/data/game_players.csv'));
+                new GamePlayerConverter($database);
                 $_SESSION['step'] += 1;
                 $_SESSION['progress'] += 1;
                 break;

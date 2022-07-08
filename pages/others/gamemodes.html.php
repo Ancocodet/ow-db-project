@@ -3,7 +3,7 @@
 $params = $_GET['params'] ?? [];
 $pageName = 'Maps';
 
-$manager = new MapManager($database);
+$manager = new GameModeManager($database);
 
 ?>
 <html lang="en">
@@ -28,8 +28,8 @@ $manager = new MapManager($database);
                         Others
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="others_dropdown">
-                        <li><a class="dropdown-item active" href="/others/maps">Maps</a></li>
-                        <li><a class="dropdown-item" href="/others/gamemodes">GameModes</a></li>
+                        <li><a class="dropdown-item" href="/others/maps">Maps</a></li>
+                        <li><a class="dropdown-item active" href="/others/gamemodes">GameModes</a></li>
                     </ul>
                 </li>
                 <li><a href="https://github.com/Ancocodet/ow-db-project" class="nav-link px-2 text-white">Repository</a></li>
@@ -40,7 +40,7 @@ $manager = new MapManager($database);
 <main>
     <div class="container mt-5 mx-auto">
         <?php
-        $table_head = ['#', 'Name', 'Location'];
+        $table_head = ['#', 'Name', 'Team Size'];
         $table_elements = $manager->getAll();
         include_once __DIR__ . '/../elements/table.html.php';
         ?>

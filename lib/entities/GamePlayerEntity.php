@@ -24,7 +24,7 @@ class GamePlayerEntity
 
     private function initializeEntity()
     {
-        $result = $this->database->query("SELECT game_player.team, players.nickname, skins.name, heroes.name  FROM game_player, players, skins, heroes WHERE game_player.id = $this->id 
+        $result = $this->database->query("SELECT game_player.team, players.nickname, skins.name, heroes.name FROM game_player, players, skins, heroes WHERE game_player.id = $this->id 
                                                     AND game_player.player_id = players.id AND game_player.skin_id = skins.id AND skins.hero_id = heroes.id 
                                                     LIMIT 1");
 

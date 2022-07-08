@@ -59,29 +59,31 @@ $manager = new HeroManager($database);
                     echo "<h4>Skins</h4>";
                     $table_head = ['#', 'Name', 'Rarity'];
                     $result = array();
+                    $counter = 0;
                     foreach ($hero->getSkins() as $skin) {
                         if(!$skin->exists())
                             continue;
 
+                        $counter++;
                         $skinValues = [
-                                $skin->getAttribute(ESkin::$ID),
+                                $counter,
                                 $skin->getAttribute(ESkin::$NAME)
                         ];
 
-                        if($skin->getAttribute([ESkin::$RARITY]) == 0){
+                        if($skin->getAttribute(ESkin::$RARITY) == 0){
                             $skinValues[] = "Common";
-                        }else if($skin->getAttribute([ESkin::$RARITY]) == 1){
+                        }else if($skin->getAttribute(ESkin::$RARITY) == 1){
                             $skinValues[] = "Rare";
-                        }else if($skin->getAttribute([ESkin::$RARITY]) == 2){
+                        }else if($skin->getAttribute(ESkin::$RARITY) == 2){
                             $skinValues[] = "Epic";
-                        }else if($skin->getAttribute([ESkin::$RARITY]) == 3){
+                        }else if($skin->getAttribute(ESkin::$RARITY) == 3){
                             $skinValues[] = "Legendary";
                         }
 
                         $result[] = $skinValues;
                     }
                     $table_elements = $result;
-                    include_once 'pages/elements/table.html.php';
+                    include_once __DIR__ . '/elements/table.html.php';
                 }
             }
             else
@@ -93,7 +95,7 @@ $manager = new HeroManager($database);
                     $result[$i][1] = "<a href='/heroes/$name'>$name</a>";
                 }
                 $table_elements = $result;
-                include_once 'pages/elements/table.html.php';
+                include_once __DIR__ . '/elements/table.html.php';
             }
             ?>
         </div>

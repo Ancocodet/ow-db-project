@@ -23,3 +23,13 @@ erDiagram
   players ||--o{ game_player: ""
 ```
 
+## Relationsschreibweise
+
+- gamemodes([gamemode_id], name, team_size)
+- maps([map_id], name, location)- 
+- games([game_id], [/gamemode_id/], [/map_id/], started, finisted, winner)
+- skins([skin_id],[/hero_id/], name, rarity)
+- heroes([hero_id], name, description, class)
+- game_player([game_player_id], team, [/player_id/], [/game_id/], [/skin_id/])
+- players([player_id], nickname,level,prestige)
+

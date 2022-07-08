@@ -49,7 +49,7 @@ class HeroEntity
 
         foreach ($result as $skin)
         {
-            $this->skins[] = new SkinEntity($this->database, $skin[ESkin::$ID], false);
+            $this->skins[] = new SkinEntity($this->database, $skin[0], false);
         }
 
     }

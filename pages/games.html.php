@@ -54,15 +54,15 @@ $manager = new GameManager($database);
                     echo "<h2>Game #$gameId (".$game->getAttribute(EGame::$GAMEMODE).")</h2>";
                     echo "<div class='row'>";
 
-                    $table = include_once 'pages/elements/table_builder.php';
+                    include_once __DIR__ . '/elements/table_builder.php';
 
                     $players = $game->getPlayers();
-                    for($i = 0; $i < count($game->getPlayers()) / $game->getAttribute(EGame::$TEAM_SIZE); $i++){
-                        $team = $i+1;
-                        $winner = $game->getAttribute(EGame::$WINNER) == $team;
-                        echo '<div class="col">';
+                    for($i = 0; $i < (10 / $game->getAttribute(EGame::$TEAM_SIZE)); $i++){
+                        $team = $i + 1;
+
+                        echo '<div class="col my-2">';
                         echo '<div class="card">';
-                        if($winner) {
+                        if($game->getAttribute(EGame::$WINNER) != $team) {
                             echo "<div class='card-header'>Team $team</div>";
                         }else{
                             echo "<div class='card-header'>Team $team (Winner)</div>";
@@ -81,6 +81,7 @@ $manager = new GameManager($database);
                                 $player->getAttribute(EGamePlayer::$HERO),
                                 $player->getAttribute(EGamePlayer::$SKIN),
                             ];
+
                             $table_elements[] = $playerData;
                         }
 
@@ -95,7 +96,17 @@ $manager = new GameManager($database);
             }
             else
             {
-                $table_head = ['#', 'Start', 'End', 'Winner', 'GameMode', 'Map'];
+                ?>
+                <div class="row justify-content-around border-bottom">
+                    <div class="col">
+                        <h2>Games</h2>
+                    </div>
+                    <div class="col">
+                        <a class="btn btn-primary" href="/create/game">Create</a>
+                    </div>
+                </div><br>
+                <?php
+                $table_head = ['#', 'Start', 'End', 'Winner', 'Map', 'GameMode'];
                 $result = $manager->getAll();
                 for ($i = 0; $i < count($result); $i++) {
                     unset($result[$i][EGame::$TEAM_SIZE]);
@@ -105,7 +116,7 @@ $manager = new GameManager($database);
                     $result[$i][EGame::$WINNER] = "Team " . $result[$i][EGame::$WINNER];
                 }
                 $table_elements = $result;
-                include_once 'pages/elements/table.html.php';
+                include_once __DIR__ . '/elements/table.html.php';
             }
             ?>
         </div>

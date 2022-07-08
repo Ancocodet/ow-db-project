@@ -49,11 +49,6 @@ class SkinEntity
         return $this->heroEntity;
     }
 
-    public function getData() : array
-    {
-        return $this->data;
-    }
-
     public function getAttribute($name)
     {
         return $this->data[$name];
