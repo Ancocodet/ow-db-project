@@ -1,7 +1,7 @@
 Classic,0,1
-Garnet,1,1
-Merciful,2,1
-Corsair,3,1
+placeholder,1,1
+placeholder,2,1
+placeholder,3,1
 Classic,0,2
 placeholder,1,2
 placeholder,2,2
@@ -83,9 +83,9 @@ placeholder,1,21
 placeholder,2,21
 placeholder,3,21
 Classic,0,22
-placeholder,1,22
-placeholder,2,22
-placeholder,3,22
+Garnet,1,22
+Merciful,2,22
+Corsair,3,22
 Classic,0,23
 placeholder,1,23
 placeholder,2,23
