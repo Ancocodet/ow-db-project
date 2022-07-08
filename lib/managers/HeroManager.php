@@ -20,7 +20,7 @@ class HeroManager
     public function getHeroId(string $name) : ?int {
         $result = $this->database->query("SELECT id FROM heroes WHERE name LIKE '$name' LIMIT 1");
         if(count($result) > 0){
-            return $this->database->query("SELECT id FROM heroes WHERE name LIKE '$name' LIMIT 1")[0][EHero::$ID];
+            return $result[0][EHero::$ID];
         }
         return null;
     }

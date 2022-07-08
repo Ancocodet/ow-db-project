@@ -15,7 +15,7 @@ class GameManager
 
     public function getAll() : array
     {
-        return $this->database->query('SELECT games.id, games.started, games.finished, games.winner, maps.name, gamemodes.name FROM games, maps, gamemodes WHERE games.map_id = maps.id AND games.gamemode_id = gamemodes.id ORDER BY id ASC');
+        return $this->database->query('SELECT games.id, games.started, games.finished, games.winner, maps.name, gamemodes.name FROM games, maps, gamemodes WHERE games.map_id = maps.id AND games.gamemode_id = gamemodes.id ORDER BY id');
     }
 
     public function createGame(int $map, int $mode) : int
