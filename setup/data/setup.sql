@@ -5,7 +5,7 @@ CREATE TABLE IF NOT EXISTS `players` (
   `prestige` INT
 );
 
-CREATE TABLE IF NOT EXISTS`heroes` (
+CREATE TABLE IF NOT EXISTS `heroes` (
   `id` INT PRIMARY KEY AUTO_INCREMENT,
   `name` TEXT,
   `description` TEXT,

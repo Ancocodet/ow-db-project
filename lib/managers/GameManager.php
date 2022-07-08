@@ -41,7 +41,6 @@ class GameManager
         {
             $randomPlayer = mt_rand(0, count($players) - 1);
             $player = $players[$randomPlayer];
-            unset($players[$randomPlayer]);
 
             $this->insertGamePlayer($team_number, $player[0], $id, $skins[mt_rand(0, count($skins) - 1)][0]);
 
@@ -54,6 +53,8 @@ class GameManager
             }else{
                 $team_number++;
             }
+
+            unset($players[$randomPlayer]);
         }
         return $id;
     }

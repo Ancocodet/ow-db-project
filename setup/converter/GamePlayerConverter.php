@@ -25,7 +25,6 @@ class GamePlayerConverter
             {
                 $randomPlayer = mt_rand(0, count($players) - 1);
                 $player = $players[$randomPlayer];
-                unset($players[$randomPlayer]);
 
                 $this->insertGamePlayer($team_number, $player[0], $game[0], $skins[mt_rand(0, count($skins) - 1)][0]);
 
@@ -38,6 +37,8 @@ class GamePlayerConverter
                 }else{
                     $team_number++;
                 }
+
+                unset($players[$randomPlayer]);
             }
         }
     }

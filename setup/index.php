@@ -24,12 +24,6 @@ if(!isset($_SESSION['step']))
 $steps = array(new ConfigFillStep(), new CreateTablesStep(),
     new EntryCreationStep(), new FinishedStep());
 
-if(isset($_GET['reset'])){
-    $_SESSION['step'] = 0;
-    $_SESSION['creation'] = 0;
-    $_SESSION['progress'] = 0;
-}
-
 if(array_key_exists($_SESSION ['step'] ?? 0, $steps)){
     $step = $steps[$_SESSION ['step'] ?? 0];
     if($_SERVER['REQUEST_METHOD'] == 'POST'){
